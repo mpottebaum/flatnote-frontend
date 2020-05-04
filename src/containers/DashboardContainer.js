@@ -1,16 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { users } from '../urlPaths'
 
 class DashboardContainer extends React.Component {
-    constructor() {
-        super()
-        this.state = {
-            users: []
-        }
-    }
 
     componentDidMount() {
-        fetch()
+        const url = users + `/${this.props.user.id}/notes`
+        fetch(url)
+            .then(resp => resp.json())
+            .then(notes => {
+                console.log(notes)
+            })
     }
 
     render() {
@@ -22,7 +22,8 @@ class DashboardContainer extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        notes: state.notes
+        notes: state.notes,
+        user: state.user
     }
 }
 

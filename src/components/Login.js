@@ -29,7 +29,7 @@ class Login extends React.Component {
         fetch(users, configObj)
             .then(resp => resp.json())
             .then(user => {
-                this.props.loginUser(user.username)
+                this.props.loginUser(user)
             })
     }
 
@@ -45,8 +45,8 @@ class Login extends React.Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        loginUser: username => {
-            dispatch(loginUser(username))
+        loginUser: user => {
+            dispatch(loginUser(user))
         }
     }
 }

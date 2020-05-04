@@ -1,14 +1,10 @@
 const usersReducer = (
-    state = {
-        username: undefined
-    },
+    state = {},
     action
 ) => {
     switch(action.type) {
         case 'LOGIN_USER':
-            return {
-                username: action.username
-            }
+            return action.user
         default:
             return state
     }
