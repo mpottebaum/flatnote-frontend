@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { users } from '../urlPaths'
+import { loginUser } from '../actions/users'
 
 class Login extends React.Component {
     constructor() {
@@ -45,7 +46,7 @@ class Login extends React.Component {
 const mapDispatchToProps = dispatch => {
     return {
         loginUser: username => {
-            dispatch({type: 'LOGIN_USER', username: username})
+            dispatch(loginUser(username))
         }
     }
 }
