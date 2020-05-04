@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { users } from '../urlPaths'
 
 class Login extends React.Component {
@@ -27,7 +28,7 @@ class Login extends React.Component {
         fetch(users, configObj)
             .then(resp => resp.json())
             .then(user => {
-                console.log(user)
+                this.props.loginUser(user.username)
             })
     }
 
@@ -41,4 +42,12 @@ class Login extends React.Component {
     }
 }
 
-export default Login
+const mapDispatchToProps = dispatch => {
+    return {
+        loginUser: username => {
+            dispatch({type: 'LOGIN_USER', username: username})
+        }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Login)
