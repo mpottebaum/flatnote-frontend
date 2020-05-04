@@ -1,9 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { users } from '../urlPaths'
-import { addNotes, showNote } from '../actions/notes'
+import { addNotes, selectNote } from '../actions/notes'
 import NotesList from '../components/NotesList'
-import ShowNote from '../components/ShowNote'
+import NoteContainer from '../containers/NoteContainer'
 
 class DashboardContainer extends React.Component {
 
@@ -25,7 +25,7 @@ class DashboardContainer extends React.Component {
     render() {
         return <React.Fragment>
             <NotesList notes={this.props.notes} handleNoteClick={this.handleNoteClick}/>
-            {this.props.showNote ? <ShowNote note={this.props.showNote} /> : null}
+            {this.props.showNote ? <NoteContainer note={this.props.showNote} /> : null}
         </React.Fragment>
     }
 }
@@ -41,7 +41,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         addNotes: notes => dispatch(addNotes(notes)),
-        selectNote: note => dispatch(showNote(note))
+        selectNote: note => dispatch(selectNote(note))
     }
 }
 

@@ -1,15 +1,35 @@
 import React from 'react'
-import { Switch, Route } from 'react-router-dom'
 import ShowNote from '../components/ShowNote'
-import DashboardContainer from './DashboardContainer'
+import EditNote from '../components/EditNote'
 
 class NoteContainer extends React.Component {
-    
+    constructor() {
+        super()
+
+        this.state = {
+            editing: false
+        }
+    }
+
+    toggleEditing = () => {
+        this.setState(prevState => {
+            return {
+                editing: !prevState.editing
+            }
+        })
+    }
 
     render() {
         return <React.Fragment>
-            <DashboardContainer />
-            <ShowNote note={} />
+            {
+                this.state.editing ?
+                <EditNote note={this.props.note} />
+                :
+                <ShowNote
+                    note={this.props.note}
+                    toggleEditing={this.toggleEditing}
+                />
+            }
         </React.Fragment>
     }
 }
