@@ -1,11 +1,15 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
-import NewNote from '../components/NewNote'
+import ShowNote from '../components/ShowNote'
+import DashboardContainer from './DashboardContainer'
 
 class NoteContainer extends React.Component {
+    
+
     render() {
         return <React.Fragment>
-            
+            <DashboardContainer />
+            <ShowNote note={} />
         </React.Fragment>
     }
 }

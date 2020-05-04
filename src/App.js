@@ -14,6 +14,7 @@ function App() {
           <Route path='/login' component={Login} />
           <Route path='/dashboard' component={DashboardContainer} />
           <Route path='/note/new' component={NewNote} />
+          <Route path='/note/:id' component={DashboardContainer} />
         </Switch>
       </Router>
   );

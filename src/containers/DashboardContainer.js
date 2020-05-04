@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { users } from '../urlPaths'
 import { addNotes } from '../actions/notes'
 import NotesList from '../components/NotesList'
+import ShowNote from '../components/ShowNote'
+import notesReducer from '../reducers/notesReducer'
 
 class DashboardContainer extends React.Component {
 
@@ -15,9 +17,16 @@ class DashboardContainer extends React.Component {
             })
     }
 
+    handleNoteClick = id => {
+        const note = this.props.notes.find(note => note.id === id)
+        this.props.selectNote(note)
+        this.props.history.push(`/note/${note.id}`)
+    }
+
     render() {
         return <React.Fragment>
-            <NotesList notes={this.props.notes} />
+            <NotesList notes={this.props.notes} handleNoteClick={this.handleNoteClick}/>
+            {this.props.showNote ? <ShowNote note={this.props.showNote} /> : null}
         </React.Fragment>
     }
 }
@@ -25,13 +34,15 @@ class DashboardContainer extends React.Component {
 const mapStateToProps = state => {
     return {
         notes: state.notes,
-        user: state.user
+        user: state.user,
+        showNote: state.showNote
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        addNotes: notes => dispatch(addNotes(notes))
+        addNotes: notes => dispatch(addNotes(notes)),
+        selectNote: note => dispatch({type: 'SELECT_NOTE', showNote: note})
     }
 }
 
