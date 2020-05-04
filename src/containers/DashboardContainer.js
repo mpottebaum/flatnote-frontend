@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { users } from '../urlPaths'
+import { addNotes } from '../actions/notes'
 
 class DashboardContainer extends React.Component {
 
@@ -9,7 +10,7 @@ class DashboardContainer extends React.Component {
         fetch(url)
             .then(resp => resp.json())
             .then(notes => {
-                console.log(notes)
+                this.props.addNotes(notes)
             })
     }
 
@@ -29,7 +30,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        addUsers: users => dispatch({type: 'ADD_USERS', users: users})
+        addNotes: notes => dispatch(addNotes(notes))
     }
 }
 
