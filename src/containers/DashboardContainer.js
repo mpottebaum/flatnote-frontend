@@ -1,10 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { users } from '../urlPaths'
-import { addNotes } from '../actions/notes'
+import { addNotes, showNote } from '../actions/notes'
 import NotesList from '../components/NotesList'
 import ShowNote from '../components/ShowNote'
-import notesReducer from '../reducers/notesReducer'
 
 class DashboardContainer extends React.Component {
 
@@ -42,7 +41,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         addNotes: notes => dispatch(addNotes(notes)),
-        selectNote: note => dispatch({type: 'SELECT_NOTE', showNote: note})
+        selectNote: note => dispatch(showNote(note))
     }
 }
 

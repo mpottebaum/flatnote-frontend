@@ -4,3 +4,10 @@ export const addNotes = notes => {
         notes: notes
     }
 }
+
+export const selectNote = note => {
+    return {
+        type: 'SELECT_NOTE',
+        showNote: note
+    }
+}
