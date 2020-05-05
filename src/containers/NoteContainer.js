@@ -1,6 +1,7 @@
 import React from 'react'
 import ShowNote from '../components/ShowNote'
 import EditNote from '../components/EditNote'
+import { users } from '../urlPaths'
 
 class NoteContainer extends React.Component {
     constructor() {
@@ -19,6 +20,22 @@ class NoteContainer extends React.Component {
         })
     }
 
+    handleDeleteNote = id => {
+        const configObj = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        const url = users + `/${this.props.user.id}/notes/${id}`
+        fetch(url, configObj)
+            .then(resp => resp.json())
+            .then(notes => {
+                this.props.addNotes(notes)
+                this.props.history.push('/dashboard')
+            })
+    }
+
     render() {
         return <React.Fragment>
             {
@@ -33,6 +50,7 @@ class NoteContainer extends React.Component {
                 <ShowNote
                     note={this.props.note}
                     toggleEditing={this.toggleEditing}
+                    handleDeleteNote={this.handleDeleteNote}
                 />
             }
         </React.Fragment>

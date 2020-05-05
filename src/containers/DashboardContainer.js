@@ -41,6 +41,7 @@ class DashboardContainer extends React.Component {
                     note={showNote}
                     user={this.props.user}
                     addNotes={this.props.addNotes}
+                    history={this.props.history}
                 />
                 :
                 null
