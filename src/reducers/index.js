@@ -6,7 +6,7 @@ import showNoteReducer from './showNoteReducer'
 const rootReducer = combineReducers({
     user: usersReducer,
     notes: notesReducer,
-    showNote: showNoteReducer
+    showNoteId: showNoteReducer
 })
 
 

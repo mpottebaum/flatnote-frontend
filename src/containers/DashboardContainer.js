@@ -13,25 +13,38 @@ class DashboardContainer extends React.Component {
             .then(resp => resp.json())
             .then(notes => {
                 this.props.addNotes(notes)
-                console.log(this.props.match)
                 if(this.props.match.params.id) {
-                    const { id } = this.props.match.params
-                    const note = notes.find(note => note.id === parseInt(id))
-                    this.props.selectNote(note)
+                    const id = parseInt(this.props.match.params.id)
+                    // const note = notes.find(note => note.id === parseInt(id))
+                    this.props.selectNote(id)
                 }
             })
     }
 
     handleNoteClick = id => {
-        const note = this.props.notes.find(note => note.id === id)
-        this.props.selectNote(note)
+        // const note = this.props.notes.find(note => note.id === id)
+        this.props.selectNote(id)
         this.props.history.push(`/note/${id}`)
     }
 
+    findShowNote = id => {
+        return this.props.notes.find(note => note.id === id)
+    }
+
     render() {
+        const showNote = this.findShowNote(this.props.showNoteId)
         return <React.Fragment>
             <NotesList notes={this.props.notes} handleNoteClick={this.handleNoteClick}/>
-            {this.props.showNote ? <NoteContainer note={this.props.showNote} /> : null}
+            {
+                showNote ?
+                <NoteContainer
+                    note={showNote}
+                    user={this.props.user}
+                    addNotes={this.props.addNotes}
+                />
+                :
+                null
+            }
         </React.Fragment>
     }
 }
@@ -40,14 +53,14 @@ const mapStateToProps = state => {
     return {
         notes: state.notes,
         user: state.user,
-        showNote: state.showNote
+        showNoteId: state.showNoteId
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         addNotes: notes => dispatch(addNotes(notes)),
-        selectNote: note => dispatch(selectNote(note))
+        selectNote: id => dispatch(selectNote(id))
     }
 }
 

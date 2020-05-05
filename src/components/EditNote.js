@@ -19,7 +19,20 @@ class EditNote extends React.Component {
 
     handleSubmit = e => {
         e.preventDefault()
-        const url = users
+        const configObj = {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({note: this.state})
+        }
+        const url = users + `/${this.props.user.id}/notes/${this.props.note.id}`
+        fetch(url, configObj)
+            .then(resp => resp.json())
+            .then(notes => {
+                this.props.addNotes(notes)
+                this.props.toggleEditing()
+            })
     }
 
     render() {

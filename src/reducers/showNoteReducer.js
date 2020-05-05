@@ -1,7 +1,7 @@
 const showNoteReducer = (state=null, action) => {
     switch(action.type) {
         case 'SELECT_NOTE':
-            return action.showNote
+            return action.showNoteId
         default:
             return state
     }

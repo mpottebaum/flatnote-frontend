@@ -23,7 +23,12 @@ class NoteContainer extends React.Component {
         return <React.Fragment>
             {
                 this.state.editing ?
-                <EditNote note={this.props.note} />
+                <EditNote
+                    note={this.props.note}
+                    user={this.props.user}
+                    addNotes={this.props.addNotes}
+                    toggleEditing={this.toggleEditing}
+                />
                 :
                 <ShowNote
                     note={this.props.note}

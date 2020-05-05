@@ -5,9 +5,9 @@ export const addNotes = notes => {
     }
 }
 
-export const selectNote = note => {
+export const selectNote = noteId => {
     return {
         type: 'SELECT_NOTE',
-        showNote: note
+        showNoteId: noteId
     }
 }
