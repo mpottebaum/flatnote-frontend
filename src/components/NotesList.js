@@ -1,5 +1,6 @@
 import React from 'react'
 import Note from './Note'
+import '../NotesList.css'
 
 const NotesList = props => {
     const renderNotes = () => {
@@ -12,7 +13,7 @@ const NotesList = props => {
         })
     }
 
-    return <ul>
+    return <ul className='notes-list'>
         {renderNotes()}
     </ul>
 }
