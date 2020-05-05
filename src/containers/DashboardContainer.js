@@ -6,7 +6,7 @@ import NotesList from '../components/NotesList'
 import NoteContainer from '../containers/NoteContainer'
 
 class DashboardContainer extends React.Component {
-    
+
 
     componentDidMount() {
         if(this.props.user) {
@@ -47,20 +47,24 @@ class DashboardContainer extends React.Component {
     render() {
         const showNote = this.findShowNote(this.props.showNoteId)
 
-        return <React.Fragment>
-            <NotesList notes={this.props.notes} handleNoteClick={this.handleNoteClick}/>
-            {
-                showNote ?
-                <NoteContainer
-                    note={showNote}
-                    user={this.props.user}
-                    addNotes={this.props.addNotes}
-                    history={this.props.history}
-                />
-                :
-                null
-            }
-        </React.Fragment>
+        return <div className='row'>
+            <div className='col-sm'>
+                <NotesList notes={this.props.notes} handleNoteClick={this.handleNoteClick}/>
+            </div>
+            <div className='col-sm'>
+                {
+                    showNote ?
+                    <NoteContainer
+                        note={showNote}
+                        user={this.props.user}
+                        addNotes={this.props.addNotes}
+                        history={this.props.history}
+                    />
+                    :
+                    null
+                }
+            </div>
+        </div>
     }
 }
 

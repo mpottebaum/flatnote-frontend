@@ -10,12 +10,14 @@ function App() {
   return (
       <Router>
         <NavBar />
-        <Switch>
-          <Route path='/login' component={Login} />
-          <Route path='/dashboard' component={DashboardContainer} />
-          <Route path='/note/new' component={NewNote} />
-          <Route path='/note/:id' component={DashboardContainer} />
-        </Switch>
+        <div className='container'>
+          <Switch>
+            <Route path='/login' component={Login} />
+            <Route path='/dashboard' component={DashboardContainer} />
+            <Route path='/note/new' component={NewNote} />
+            <Route path='/note/:id' component={DashboardContainer} />
+          </Switch>
+        </div>
       </Router>
   );
 }
