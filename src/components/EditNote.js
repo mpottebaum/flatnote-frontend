@@ -5,9 +5,12 @@ class EditNote extends React.Component {
     constructor(props) {
         super()
 
+        const tagNames = props.note.tags.map(tag => tag.name)
+
         this.state = {
             title: props.note.title,
-            content: props.note.content
+            content: props.note.content,
+            tagNames: tagNames.join(', ')
         }
     }
 
@@ -39,6 +42,8 @@ class EditNote extends React.Component {
         return <form onSubmit={this.handleSubmit}>
             <input onChange={this.handleChange} type='text' name='title' value={this.state.title} />
             <input onChange={this.handleChange} type='text-area' name='content' value={this.state.content} />
+            <label htmlFor='tagNames'>Tags</label>
+            <input onChange={this.handleChange} type='text' name='tagNames' value={this.state.tagNames} />
             <input type='submit' value='Save' />
         </form>
     }

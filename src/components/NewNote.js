@@ -7,7 +7,8 @@ class NewNote extends React.Component {
         super()
         this.state = {
             title: '',
-            content: ''
+            content: '',
+            tagNames: ''
         }
     }
 
@@ -41,6 +42,8 @@ class NewNote extends React.Component {
             <input onChange={this.handleChange} type='text' name='title' value={this.state.title} />
             <label htmlFor='content'>Notes</label>
             <input onChange={this.handleChange} type='text-area' name='content' value={this.state.content} />
+            <label htmlFor='tagNames'>Tags</label>
+            <input onChange={this.handleChange} type='text' name='tagNames' value={this.state.tagNames} />
             <input type='submit' value='Save' />
         </form>
     }
