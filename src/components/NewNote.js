@@ -12,6 +12,12 @@ class NewNote extends React.Component {
         }
     }
 
+    componentDidMount() {
+        if(!this.props.user) {
+            this.props.history.push('/login')
+        }
+    }
+
     handleChange = e => {
         this.setState({
             [e.target.name]: e.target.value

@@ -6,23 +6,36 @@ import NotesList from '../components/NotesList'
 import NoteContainer from '../containers/NoteContainer'
 
 class DashboardContainer extends React.Component {
+    
 
     componentDidMount() {
-        const url = users + `/${this.props.user.id}/notes`
-        fetch(url)
-            .then(resp => resp.json())
-            .then(notes => {
-                this.props.addNotes(notes)
-                if(this.props.match.params.id) {
-                    const id = parseInt(this.props.match.params.id)
-                    // const note = notes.find(note => note.id === parseInt(id))
-                    this.props.selectNote(id)
-                }
-            })
+        if(this.props.user) {
+            const url = users + `/${this.props.user.id}/notes`
+            fetch(url)
+                .then(resp => resp.json())
+                .then(notes => {
+                    this.props.addNotes(notes)
+                    if(this.props.match.params.id) {
+                        const id = parseInt(this.props.match.params.id)
+                        this.props.selectNote(id)
+                    }
+                })
+        } else {
+            this.props.history.push('/login')
+        }
+    }
+
+    componentDidUpdate() {
+        this.clearShowNote()
+    }
+    
+    clearShowNote = () => {
+        if(this.props.match.path === '/dashboard') {
+            this.props.selectNote(null)
+        }
     }
 
     handleNoteClick = id => {
-        // const note = this.props.notes.find(note => note.id === id)
         this.props.selectNote(id)
         this.props.history.push(`/note/${id}`)
     }
@@ -33,6 +46,7 @@ class DashboardContainer extends React.Component {
 
     render() {
         const showNote = this.findShowNote(this.props.showNoteId)
+
         return <React.Fragment>
             <NotesList notes={this.props.notes} handleNoteClick={this.handleNoteClick}/>
             {
