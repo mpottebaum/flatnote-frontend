@@ -1,4 +1,5 @@
 import React from 'react'
+import { users } from '../urlPaths'
 
 class EditNote extends React.Component {
     constructor(props) {
@@ -16,8 +17,13 @@ class EditNote extends React.Component {
         })
     }
 
+    handleSubmit = e => {
+        e.preventDefault()
+        const url = users
+    }
+
     render() {
-        return <form>
+        return <form onSubmit={this.handleSubmit}>
             <input onChange={this.handleChange} type='text' name='title' value={this.state.title} />
             <input onChange={this.handleChange} type='text-area' name='content' value={this.state.content} />
             <input type='submit' value='Save' />

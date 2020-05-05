@@ -30,9 +30,8 @@ class NewNote extends React.Component {
         const url = users + `/${this.props.user.id}/notes`
         fetch(url, configObj)
             .then(resp => resp.json())
-            .then(data => {
-                console.log(data)
-                this.props.history.push('/dashboard')
+            .then(note => {
+                this.props.history.push(`/note/${note.id}`)
             })
     }
 

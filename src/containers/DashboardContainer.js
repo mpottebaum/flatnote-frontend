@@ -13,13 +13,19 @@ class DashboardContainer extends React.Component {
             .then(resp => resp.json())
             .then(notes => {
                 this.props.addNotes(notes)
+                console.log(this.props.match)
+                if(this.props.match.params.id) {
+                    const { id } = this.props.match.params
+                    const note = notes.find(note => note.id === parseInt(id))
+                    this.props.selectNote(note)
+                }
             })
     }
 
     handleNoteClick = id => {
         const note = this.props.notes.find(note => note.id === id)
         this.props.selectNote(note)
-        this.props.history.push(`/note/${note.id}`)
+        this.props.history.push(`/note/${id}`)
     }
 
     render() {

@@ -30,6 +30,7 @@ class Login extends React.Component {
             .then(resp => resp.json())
             .then(user => {
                 this.props.loginUser(user)
+                this.props.history.push('/dashboard')
             })
     }
 
