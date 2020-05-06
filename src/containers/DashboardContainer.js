@@ -3,12 +3,21 @@ import { connect } from 'react-redux'
 import { users } from '../urlPaths'
 import { addNotes, selectNote } from '../actions/notes'
 import NotesList from '../components/NotesList'
-import NoteContainer from '../containers/NoteContainer'
+import NoteContainer from './NoteContainer'
+import NotesFilter from '../components/NotesFilter'
+import NotesSort from '../components/NotesSort'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
 class DashboardContainer extends React.Component {
+    constructor() {
+        super()
+
+        this.state = {
+            sort: 'created'
+        }
+    }
 
 
     componentDidMount() {
@@ -43,19 +52,48 @@ class DashboardContainer extends React.Component {
         this.props.history.push(`/note/${id}`)
     }
 
+    handleSort = value => {
+        this.setState({
+            sort: value
+        })
+    }
+
+    sortNotes = () => {
+        switch(this.state.sort) {
+            case 'created':
+                return this.props.notes.sort((a, b) => {
+                    return (new Date(b.created_at)) - (new Date(a.created_at))
+                })
+            case 'updated':
+                return this.props.notes.sort((a, b) => {
+                    return (new Date(b.updated_at)) - (new Date(a.updated_at))
+                })
+            case 'title':
+                return this.props.notes.sort((a, b) => {
+                    const textA = a.title.toUpperCase();
+                    const textB = b.title.toUpperCase();
+                    return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+                })
+            default:
+                return this.props.notes
+        }
+    }
+
     findShowNote = id => {
         return this.props.notes.find(note => note.id === id)
     }
 
     render() {
         const showNote = this.findShowNote(this.props.showNoteId)
+        const notes = this.sortNotes()
 
         return <Container>
             <Row>
+
                 <Col sm={5}>
-                    <NotesList notes={this.props.notes} handleNoteClick={this.handleNoteClick}/>
+                    <NotesList notes={notes} handleNoteClick={this.handleNoteClick}/>
                 </Col>
-                <Col sm={5}>
+                <Col sm={3}>
                     {
                         showNote ?
                         <NoteContainer
@@ -67,6 +105,8 @@ class DashboardContainer extends React.Component {
                         :
                         null
                     }
+                    <NotesFilter />
+                    <NotesSort handleSort={this.handleSort} />
                 </Col>
             </Row>
         </Container>
