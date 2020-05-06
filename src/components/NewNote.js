@@ -50,9 +50,9 @@ class NewNote extends React.Component {
                 <Form.Label>Title</Form.Label>
                 <Form.Control onChange={this.handleChange} type='text' name='title' value={this.state.title} />
             </Form.Group>
-            <Form.Group controlId='formBasicText'>
+            <Form.Group controlId='formBasicTextArea'>
                 <Form.Label>Notes</Form.Label>
-                <Form.Control onChange={this.handleChange} type='text-area' name='content' value={this.state.content} />
+                <Form.Control as='textarea' row='7' onChange={this.handleChange} type='text-area' name='content' value={this.state.content} />
             </Form.Group>
             <Form.Group controlId='formBasicText'>
                 <Form.Label>Tags</Form.Label>
