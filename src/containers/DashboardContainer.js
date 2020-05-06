@@ -82,7 +82,16 @@ class DashboardContainer extends React.Component {
     }
 
     getTags = notes => {
-        return notes.map(note => note.tags).flat()
+        const allTags = notes.map(note => note.tags).flat()
+        const lib = {}
+        return allTags.filter(tag => {
+            if(lib[tag.id]) {
+                return false
+            } else {
+                lib[tag.id] = tag.id
+                return true
+            }
+        })
     }
 
     filterNotes = () => {

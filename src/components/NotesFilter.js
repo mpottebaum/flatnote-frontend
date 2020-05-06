@@ -26,7 +26,7 @@ class NotesFilter extends React.Component {
 
     renderTags = () => {
         return this.matchingTags().map(tag => {
-            return <ListGroup.Item onClick={() => this.props.handleClickFilterTag(tag)}>{tag.name}</ListGroup.Item>
+            return <ListGroup.Item key={tag.id} onClick={() => this.props.handleClickFilterTag(tag)}>{tag.name}</ListGroup.Item>
         })
     }
 
@@ -39,13 +39,15 @@ class NotesFilter extends React.Component {
             <Card>
                 <Card.Body>
                     Selected Tags: {this.renderSelectedTags()}
+                    <Form.Text>Click on a tag to remove filter</Form.Text>
                 </Card.Body>
                 <Accordion.Toggle as={Card.Header} eventKey="0">
                   Search Tags
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
-                      <Form.Control onChange={this.handleChange} type='text' value={this.state.tag} placeholder='Select tags from the list below'/>
+                      <Form.Control onChange={this.handleChange} type='text' value={this.state.tag} placeholder='Enter tag name'/>
+                      <Form.Text>Select tags from the list below</Form.Text>
                         <ListGroup>
                             {this.renderTags()}
                         </ListGroup>
