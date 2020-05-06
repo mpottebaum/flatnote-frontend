@@ -47,11 +47,8 @@ class DashboardContainer extends React.Component {
     render() {
         const showNote = this.findShowNote(this.props.showNoteId)
 
-        return <div className='row'>
-            <div className='col-sm'>
+        return <div>
                 <NotesList notes={this.props.notes} handleNoteClick={this.handleNoteClick}/>
-            </div>
-            <div className='col-sm'>
                 {
                     showNote ?
                     <NoteContainer
@@ -63,7 +60,6 @@ class DashboardContainer extends React.Component {
                     :
                     null
                 }
-            </div>
         </div>
     }
 }

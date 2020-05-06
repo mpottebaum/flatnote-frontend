@@ -2,6 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { users } from '../urlPaths'
 import { loginUser } from '../actions/users'
+import Form from 'react-bootstrap/Form'
+import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row'
 
 class Login extends React.Component {
     constructor() {
@@ -36,10 +39,22 @@ class Login extends React.Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit} >
-                <input onChange={this.handleChange} type='text' name='username' value={this.state.username} />
-                <input type='submit' value='login' />
-            </form>
+            <Form onSubmit={this.handleSubmit} >
+                <Form.Group as={Row} controlId='formHorizontalText'>
+                <Col sm={5}>
+                    <Form.Control
+                        onChange={this.handleChange}
+                        type='text'
+                        name='username'
+                        value={this.state.username}
+                        placeholder='Username'
+                    />
+                </Col>
+                <Col sm={1}>
+                  <Form.Control type='submit' value='Login' />
+                </Col>
+                </Form.Group>
+            </Form>
         )
     }
 }

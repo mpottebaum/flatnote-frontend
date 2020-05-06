@@ -2,8 +2,10 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { logoutUser } from '../actions/users'
+import Navbar from 'react-bootstrap/NavBar'
+import Nav from 'react-bootstrap/Nav'
 
-class NavBar extends React.Component {
+class NavigationBar extends React.Component {
     handleLogOut = () => {
         if(this.props.user) {
             this.props.logoutUser()
@@ -11,33 +13,20 @@ class NavBar extends React.Component {
     }
 
     render() {
-        return <div className='row'>
-                <nav className='navbar navbar-expand-lg navbar-light bg-light'>
-                    <ul className='navbar-nav mr-auto list-group list-group-horizontal'>
-                        <div className='col-5'>
-                            <li className='nav-item'>
-                                <NavLink to='/dashboard' className='nav-link'>
-                                    Dashboard
-                                </NavLink>
-                            </li>
-                        </div>
-                        <div className='col-5'>
-                            <li className='nav-item'>
-                                <NavLink to='/note/new' className='nav-link'>
-                                    New Note
-                                </NavLink>
-                            </li>
-                        </div>
-                        <div className='col-5'>
-                            <li className='nav-item'>
-                                <NavLink to='/login' className='nav-link' onClick={this.handleLogOut}>
-                                    {this.props.user ? 'Sign Out' : 'Sign In'}
-                                </NavLink>
-                            </li>
-                        </div>
-                    </ul>
-                </nav>
-            </div>
+        return <Navbar bg="light">
+            <Navbar.Brand>Flatnote</Navbar.Brand>
+                <Nav className="mr-auto">
+                    <NavLink to='/dashboard' className='nav-link'>
+                        Dashboard
+                    </NavLink>
+                    <NavLink to='/note/new' className='nav-link'>
+                        New Note
+                    </NavLink>
+                </Nav>
+                <NavLink to='/login' className='nav-link' onClick={this.handleLogOut}>
+                    {this.props.user ? 'Sign Out' : 'Sign In'}
+                </NavLink>
+        </Navbar>
     }
 }
 
@@ -53,4 +42,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar)
+export default connect(mapStateToProps, mapDispatchToProps)(NavigationBar)

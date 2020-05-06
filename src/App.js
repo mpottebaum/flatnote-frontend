@@ -3,13 +3,14 @@ import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import Login from './components/Login'
 import DashboardContainer from './containers/DashboardContainer'
 import NewNote from './components/NewNote'
-import NavBar from './components/NavBar'
+import NavigationBar from './components/NavBar'
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 function App() {
   return (
       <Router>
-        <NavBar />
+        <NavigationBar />
         <div className='container'>
           <Switch>
             <Route path='/login' component={Login} />

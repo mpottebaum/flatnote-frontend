@@ -13,7 +13,7 @@ const NotesList = props => {
         })
     }
 
-    return <ul className='notes-list'>
+    return <ul>
         {renderNotes()}
     </ul>
 }
