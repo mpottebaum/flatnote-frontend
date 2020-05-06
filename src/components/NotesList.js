@@ -1,6 +1,7 @@
 import React from 'react'
 import Note from './Note'
 import '../NotesList.css'
+import ListGroup from 'react-bootstrap/ListGroup'
 
 const NotesList = props => {
     const renderNotes = () => {
@@ -13,9 +14,9 @@ const NotesList = props => {
         })
     }
 
-    return <ul>
+    return <ListGroup className='notes-list'>
         {renderNotes()}
-    </ul>
+    </ListGroup>
 }
 
 export default NotesList

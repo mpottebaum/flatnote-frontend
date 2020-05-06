@@ -1,11 +1,12 @@
 import React from 'react'
+import ListGroup from 'react-bootstrap/ListGroup'
 
 const Note = props => {
     const { id, title, content} = props.note
-    return <li onClick={e => props.handleNoteClick(id)}>
+    return <ListGroup.Item onClick={e => props.handleNoteClick(id)}>
         <p>{title}</p>
         <p>{content}</p>
-    </li>
+    </ListGroup.Item>
 }
 
 export default Note

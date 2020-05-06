@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { users } from '../urlPaths'
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
 
 class NewNote extends React.Component {
     constructor() {
@@ -43,15 +45,22 @@ class NewNote extends React.Component {
     }
 
     render() {
-        return <form onSubmit={this.handleSubmit}>
-            <label htmlFor='title'>Title</label>
-            <input onChange={this.handleChange} type='text' name='title' value={this.state.title} />
-            <label htmlFor='content'>Notes</label>
-            <input onChange={this.handleChange} type='text-area' name='content' value={this.state.content} />
-            <label htmlFor='tagNames'>Tags</label>
-            <input onChange={this.handleChange} type='text' name='tagNames' value={this.state.tagNames} />
-            <input type='submit' value='Save' />
-        </form>
+        return <Form onSubmit={this.handleSubmit}>
+            <Form.Group controlId='formBasicText'>
+                <Form.Label>Title</Form.Label>
+                <Form.Control onChange={this.handleChange} type='text' name='title' value={this.state.title} />
+            </Form.Group>
+            <Form.Group controlId='formBasicText'>
+                <Form.Label>Notes</Form.Label>
+                <Form.Control onChange={this.handleChange} type='text-area' name='content' value={this.state.content} />
+            </Form.Group>
+            <Form.Group controlId='formBasicText'>
+                <Form.Label>Tags</Form.Label>
+                <Form.Control onChange={this.handleChange} type='text' name='tagNames' value={this.state.tagNames} />
+                <Form.Text>Separate tags with a comma</Form.Text>
+            </Form.Group>
+            <Button type='submit'>Save</Button>
+        </Form>
     }
 }
 

@@ -1,5 +1,7 @@
 import React from 'react'
 import { users } from '../urlPaths'
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
 
 class EditNote extends React.Component {
     constructor(props) {
@@ -39,13 +41,20 @@ class EditNote extends React.Component {
     }
 
     render() {
-        return <form onSubmit={this.handleSubmit}>
-            <input onChange={this.handleChange} type='text' name='title' value={this.state.title} />
-            <input onChange={this.handleChange} type='text-area' name='content' value={this.state.content} />
-            <label htmlFor='tagNames'>Tags</label>
-            <input onChange={this.handleChange} type='text' name='tagNames' value={this.state.tagNames} />
-            <input type='submit' value='Save' />
-        </form>
+        return <Form onSubmit={this.handleSubmit}>
+            <Form.Group controlId='formBasicText'>
+                <Form.Control onChange={this.handleChange} type='text' name='title' value={this.state.title} />
+            </Form.Group>
+            <Form.Group controlId='formBasicTextArea'>
+                <Form.Control as='textarea' row='4' onChange={this.handleChange} type='text' name='content' value={this.state.content} />
+            </Form.Group>
+            <Form.Group controlId='formBasicText'>
+                <Form.Label>Tags</Form.Label>
+                <Form.Control onChange={this.handleChange} type='text' name='tagNames' value={this.state.tagNames} />
+                <Form.Text>Separate tags with a comma</Form.Text>
+            </Form.Group>
+            <Button type='submit'>Save</Button>
+        </Form>
     }
 }
 

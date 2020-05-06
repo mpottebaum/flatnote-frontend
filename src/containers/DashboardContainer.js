@@ -4,6 +4,9 @@ import { users } from '../urlPaths'
 import { addNotes, selectNote } from '../actions/notes'
 import NotesList from '../components/NotesList'
 import NoteContainer from '../containers/NoteContainer'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 class DashboardContainer extends React.Component {
 
@@ -47,20 +50,26 @@ class DashboardContainer extends React.Component {
     render() {
         const showNote = this.findShowNote(this.props.showNoteId)
 
-        return <div>
-                <NotesList notes={this.props.notes} handleNoteClick={this.handleNoteClick}/>
-                {
-                    showNote ?
-                    <NoteContainer
-                        note={showNote}
-                        user={this.props.user}
-                        addNotes={this.props.addNotes}
-                        history={this.props.history}
-                    />
-                    :
-                    null
-                }
-        </div>
+        return <Container>
+            <Row>
+                <Col sm={5}>
+                    <NotesList notes={this.props.notes} handleNoteClick={this.handleNoteClick}/>
+                </Col>
+                <Col sm={5}>
+                    {
+                        showNote ?
+                        <NoteContainer
+                            note={showNote}
+                            user={this.props.user}
+                            addNotes={this.props.addNotes}
+                            history={this.props.history}
+                        />
+                        :
+                        null
+                    }
+                </Col>
+            </Row>
+        </Container>
     }
 }
 
