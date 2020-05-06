@@ -37,7 +37,7 @@ class NoteContainer extends React.Component {
     }
 
     render() {
-        return <React.Fragment>
+        return <div className='note-container'>
             {
                 this.state.editing ?
                 <EditNote
@@ -53,7 +53,7 @@ class NoteContainer extends React.Component {
                     handleDeleteNote={this.handleDeleteNote}
                 />
             }
-        </React.Fragment>
+        </div>
     }
 }
 

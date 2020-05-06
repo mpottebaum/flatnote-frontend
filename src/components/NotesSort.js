@@ -4,11 +4,14 @@ import ToggleButton from 'react-bootstrap/ToggleButton'
 
 class NotesSort extends React.Component {
     render() {
-        return <ToggleButtonGroup onChange={this.props.handleSort} type='radio' name='sort' defaultValue={'created'}>
-        <ToggleButton value={'created'}>Recently Created</ToggleButton>
-        <ToggleButton value={'updated'}>Recently Updated</ToggleButton>
-        <ToggleButton value={'title'}>Title</ToggleButton>
-      </ToggleButtonGroup>
+        return <div>
+            <p>Sort By</p>
+            <ToggleButtonGroup onChange={this.props.handleSort} size="sm" type='radio' name='sort' defaultValue={'created'}>
+            <ToggleButton value={'created'}>Recently Created</ToggleButton>
+            <ToggleButton value={'updated'}>Recently Updated</ToggleButton>
+            <ToggleButton value={'title'}>Title</ToggleButton>
+        </ToggleButtonGroup>
+        </div>
     }
 }
 

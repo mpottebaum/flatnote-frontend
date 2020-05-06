@@ -9,13 +9,15 @@ import NotesSort from '../components/NotesSort'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import '../Dashboard.css'
 
 class DashboardContainer extends React.Component {
     constructor() {
         super()
 
         this.state = {
-            sort: 'created'
+            sort: 'created',
+            selectedTags: []
         }
     }
 
@@ -58,25 +60,58 @@ class DashboardContainer extends React.Component {
         })
     }
 
-    sortNotes = () => {
+    sortNotes = notes => {
         switch(this.state.sort) {
             case 'created':
-                return this.props.notes.sort((a, b) => {
+                return notes.sort((a, b) => {
                     return (new Date(b.created_at)) - (new Date(a.created_at))
                 })
             case 'updated':
-                return this.props.notes.sort((a, b) => {
+                return notes.sort((a, b) => {
                     return (new Date(b.updated_at)) - (new Date(a.updated_at))
                 })
             case 'title':
-                return this.props.notes.sort((a, b) => {
+                return notes.sort((a, b) => {
                     const textA = a.title.toUpperCase();
                     const textB = b.title.toUpperCase();
                     return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
                 })
             default:
-                return this.props.notes
+                return notes
         }
+    }
+
+    getTags = notes => {
+        return notes.map(note => note.tags).flat()
+    }
+
+    filterNotes = () => {
+        return this.props.notes.filter(note => {
+            return this.state.selectedTags.every(tag => note.tags.includes(tag))
+        })
+    }
+
+    handleClickFilterTag = tag => {
+        this.setState(prevState => {
+            if(prevState.selectedTags.includes(tag)) {
+                return {}
+            } else {
+                return {
+                    selectedTags: [...prevState.selectedTags, tag]
+                }
+            }
+        })
+    }
+
+    handleRemoveFilterTag = id => {
+        this.setState(prevState => {
+            const updatedTags = prevState.selectedTags.filter(tag => {
+                return tag.id !== id
+            })
+            return {
+                selectedTags: updatedTags
+            }
+        })
     }
 
     findShowNote = id => {
@@ -85,15 +120,17 @@ class DashboardContainer extends React.Component {
 
     render() {
         const showNote = this.findShowNote(this.props.showNoteId)
-        const notes = this.sortNotes()
+        const notes = this.filterNotes()
+        const tags = this.getTags(notes)
+        const sortedNotes = this.sortNotes(notes)
 
         return <Container>
-            <Row>
-
+            <Row className='dashboard'>
                 <Col sm={5}>
-                    <NotesList notes={notes} handleNoteClick={this.handleNoteClick}/>
+                    <NotesList notes={sortedNotes} handleNoteClick={this.handleNoteClick}/>
+                    <NotesSort handleSort={this.handleSort} />
                 </Col>
-                <Col sm={3}>
+                <Col sm={5}>
                     {
                         showNote ?
                         <NoteContainer
@@ -105,8 +142,12 @@ class DashboardContainer extends React.Component {
                         :
                         null
                     }
-                    <NotesFilter />
-                    <NotesSort handleSort={this.handleSort} />
+                    <NotesFilter
+                        tags={tags}
+                        selectedTags={this.state.selectedTags}
+                        handleClickFilterTag={this.handleClickFilterTag}
+                        handleRemoveFilterTag={this.handleRemoveFilterTag}
+                    />
                 </Col>
             </Row>
         </Container>
