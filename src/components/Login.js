@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { users } from '../urlPaths'
+import { auth } from '../urlPaths'
 import { loginUser } from '../actions/users'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
@@ -10,13 +10,14 @@ class Login extends React.Component {
     constructor() {
         super()
         this.state = {
-            username: ''
+            username: '',
+            password: ''
         }
     }
 
     handleChange = e => {
         this.setState({
-            username: e.target.value
+            [e.target.name]: e.target.value
         })
     }
 
@@ -29,10 +30,12 @@ class Login extends React.Component {
             },
             body: JSON.stringify(this.state)
         }
-        fetch(users, configObj)
+        fetch(auth, configObj)
             .then(resp => resp.json())
-            .then(user => {
-                this.props.loginUser(user)
+            .then(data => {
+                console.log(data)
+                localStorage.setItem('token', data.jwt)
+                this.props.loginUser(data.user)
                 this.props.history.push('/dashboard')
             })
     }
@@ -50,6 +53,14 @@ class Login extends React.Component {
                         placeholder='Username'
                     />
                 </Col>
+                <Col sm={5}>
+                    <Form.Control
+                        onChange={this.handleChange}
+                        type='password'
+                        name='password'
+                        value={this.state.password}
+                    />
+                </Col>
                 <Col sm={1}>
                   <Form.Control type='submit' value='Login' />
                 </Col>
@@ -62,7 +73,7 @@ class Login extends React.Component {
 const mapDispatchToProps = dispatch => {
     return {
         loginUser: user => {
-            dispatch(loginUser(user))
+            return dispatch(loginUser(user))
         }
     }
 }

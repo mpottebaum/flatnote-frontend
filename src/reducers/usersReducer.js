@@ -7,6 +7,8 @@ const usersReducer = (
             return action.user
         case 'LOGOUT_USER':
             return null
+        case 'CURRENT_USER':
+            return action.user
         default:
             return state
     }

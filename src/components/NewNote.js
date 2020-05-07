@@ -15,7 +15,8 @@ class NewNote extends React.Component {
     }
 
     componentDidMount() {
-        if(!this.props.user) {
+        const token = localStorage.getItem('token')
+        if(!this.props.auth) {
             this.props.history.push('/login')
         }
     }
@@ -29,10 +30,12 @@ class NewNote extends React.Component {
     handleSubmit = e => {
         e.preventDefault()
         e.target.reset()
+        const token = localStorage.getItem('token')
         const configObj = {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({note: this.state})
         }
@@ -66,7 +69,8 @@ class NewNote extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        user: state.user
+        user: state.user,
+        auth: state.auth
     }
 }
 

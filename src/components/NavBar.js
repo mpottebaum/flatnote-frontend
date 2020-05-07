@@ -8,6 +8,7 @@ import Nav from 'react-bootstrap/Nav'
 class NavigationBar extends React.Component {
     handleLogOut = () => {
         if(this.props.user) {
+            localStorage.removeItem('token')
             this.props.logoutUser()
         }
     }
@@ -24,7 +25,7 @@ class NavigationBar extends React.Component {
                     </NavLink>
                 </Nav>
                 <NavLink to='/login' className='nav-link' onClick={this.handleLogOut}>
-                    {this.props.user ? 'Sign Out' : 'Sign In'}
+                    {this.props.user ? 'Logout' : 'Login'}
                 </NavLink>
         </Navbar>
     }
