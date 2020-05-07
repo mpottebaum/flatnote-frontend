@@ -28,7 +28,6 @@ class NewNote extends React.Component {
               fetch(auth, configObj)
                 .then(resp => resp.json())
                 .then(data => {
-                    console.log(data)
                     this.props.currentUser(data.user)
                 })
         } else if(!this.props.auth) {

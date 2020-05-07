@@ -24,6 +24,7 @@ class NavigationBar extends React.Component {
                         New Note
                     </NavLink>
                 </Nav>
+                    {this.props.user ? null : <NavLink to='/register' className='nav-link'>Register</NavLink>}
                 <NavLink to='/login' className='nav-link' onClick={this.handleLogOut}>
                     {this.props.user ? 'Logout' : 'Login'}
                 </NavLink>

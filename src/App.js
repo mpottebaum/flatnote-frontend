@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import Login from './components/Login'
+import RegisterUser from './components/RegisterUser'
 import DashboardContainer from './containers/DashboardContainer'
 import NewNote from './components/NewNote'
 import NavigationBar from './components/NavBar'
@@ -16,6 +17,7 @@ class App extends React.Component {
           <div className='container'>
             <Switch>
               <Route path='/login' component={Login} />
+              <Route path='/register' component={RegisterUser} />
               <Route path='/dashboard' component={DashboardContainer} />
               <Route path='/note/new' component={NewNote} />
               <Route path='/note/:id' component={DashboardContainer} />
