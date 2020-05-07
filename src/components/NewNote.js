@@ -1,8 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { users } from '../urlPaths'
+import { users, auth } from '../urlPaths'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import { currentUser } from '../actions/users'
 
 class NewNote extends React.Component {
     constructor() {
@@ -16,7 +17,21 @@ class NewNote extends React.Component {
 
     componentDidMount() {
         const token = localStorage.getItem('token')
-        if(!this.props.auth) {
+        if(token) {
+            const configObj = {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}`
+                }
+              }
+              fetch(auth, configObj)
+                .then(resp => resp.json())
+                .then(data => {
+                    console.log(data)
+                    this.props.currentUser(data.user)
+                })
+        } else if(!this.props.auth) {
             this.props.history.push('/login')
         }
     }
@@ -74,4 +89,10 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(NewNote)
+const mapDispatchToProps = dispatch => {
+    return {
+        currentUser: user => dispatch(currentUser(user))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewNote)
