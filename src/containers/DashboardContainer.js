@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { users } from '../urlPaths'
+import { users, auth } from '../urlPaths'
 import { addNotes, selectNote } from '../actions/notes'
+import { currentUser } from '../actions/users'
 import NotesList from '../components/NotesList'
 import NoteContainer from './NoteContainer'
 import NotesFilter from '../components/NotesFilter'
@@ -23,9 +24,16 @@ class DashboardContainer extends React.Component {
 
 
     componentDidMount() {
-        if(this.props.user) {
+        const token = localStorage.getItem('token')
+        if(this.props.auth) {
             const url = users + `/${this.props.user.id}/notes`
-            fetch(url)
+            const configObj = {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+            fetch(url, configObj)
                 .then(resp => resp.json())
                 .then(notes => {
                     this.props.addNotes(notes)
@@ -34,6 +42,25 @@ class DashboardContainer extends React.Component {
                         this.props.selectNote(id)
                     }
                 })
+        } else if(token) {
+          const configObj = {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            }
+          }
+          fetch(auth, configObj)
+            .then(resp => resp.json())
+            .then(data => {
+                console.log(data)
+                this.props.currentUser(data.user)
+                this.props.addNotes(data.notes)
+                if(this.props.match.params.id) {
+                    const id = parseInt(this.props.match.params.id)
+                    this.props.selectNote(id)
+                }
+            })
         } else {
             this.props.history.push('/login')
         }
@@ -167,14 +194,16 @@ const mapStateToProps = state => {
     return {
         notes: state.notes,
         user: state.user,
-        showNoteId: state.showNoteId
+        showNoteId: state.showNoteId,
+        auth: state.auth
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         addNotes: notes => dispatch(addNotes(notes)),
-        selectNote: id => dispatch(selectNote(id))
+        selectNote: id => dispatch(selectNote(id)),
+        currentUser: user => dispatch(currentUser(user))
     }
 }
 

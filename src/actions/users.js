@@ -10,3 +10,10 @@ export const logoutUser = () => {
         type: 'LOGOUT_USER'
     }
 }
+
+export const currentUser = user => {
+    return {
+        type: 'CURRENT_USER',
+        user: user
+    }
+}

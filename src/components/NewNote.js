@@ -1,8 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { users } from '../urlPaths'
+import { users, auth } from '../urlPaths'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import { currentUser } from '../actions/users'
 
 class NewNote extends React.Component {
     constructor() {
@@ -15,7 +16,21 @@ class NewNote extends React.Component {
     }
 
     componentDidMount() {
-        if(!this.props.user) {
+        const token = localStorage.getItem('token')
+        if(token) {
+            const configObj = {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}`
+                }
+              }
+              fetch(auth, configObj)
+                .then(resp => resp.json())
+                .then(data => {
+                    this.props.currentUser(data.user)
+                })
+        } else if(!this.props.auth) {
             this.props.history.push('/login')
         }
     }
@@ -29,10 +44,12 @@ class NewNote extends React.Component {
     handleSubmit = e => {
         e.preventDefault()
         e.target.reset()
+        const token = localStorage.getItem('token')
         const configObj = {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({note: this.state})
         }
@@ -66,8 +83,15 @@ class NewNote extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        user: state.user
+        user: state.user,
+        auth: state.auth
     }
 }
 
-export default connect(mapStateToProps)(NewNote)
+const mapDispatchToProps = dispatch => {
+    return {
+        currentUser: user => dispatch(currentUser(user))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewNote)

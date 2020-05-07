@@ -25,10 +25,12 @@ class EditNote extends React.Component {
 
     handleSubmit = e => {
         e.preventDefault()
+        const token = localStorage.getItem('token')
         const configObj = {
             method: 'PATCH',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({note: this.state})
         }
