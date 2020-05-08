@@ -37,9 +37,13 @@ class RegisterUser extends React.Component {
             fetch(users, configObj)
                 .then(resp => resp.json())
                 .then(data => {
-                    localStorage.setItem('token', data.jwt)
-                    this.props.currentUser(data.user)
-                    this.props.history.push('/dashboard')
+                    if(data.error) {
+                        alert(data.error)
+                    } else {
+                        localStorage.setItem('token', data.jwt)
+                        this.props.currentUser(data.user)
+                        this.props.history.push('/dashboard')
+                    }
                 })
         }
     }
