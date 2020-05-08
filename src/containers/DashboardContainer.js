@@ -22,17 +22,22 @@ class DashboardContainer extends React.Component {
         }
     }
 
+    buildConfigObj = token => {
+        return {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            }
+          }
+    }
+
 
     componentDidMount() {
         const token = localStorage.getItem('token')
         if(this.props.auth) {
             const url = users + `/${this.props.user.id}/notes`
-            const configObj = {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            }
+            const configObj = this.buildConfigObj(token)
             fetch(url, configObj)
                 .then(resp => resp.json())
                 .then(notes => {
@@ -43,13 +48,7 @@ class DashboardContainer extends React.Component {
                     }
                 })
         } else if(token) {
-          const configObj = {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`
-            }
-          }
+          const configObj = this.buildConfigObj(token)
           fetch(auth, configObj)
             .then(resp => resp.json())
             .then(data => {
@@ -133,13 +132,13 @@ class DashboardContainer extends React.Component {
         })
     }
 
-    handleClickFilterTag = tag => {
+    handleClickFilterTag = id => {
         this.setState(prevState => {
-            if(prevState.selectedTagIds.includes(tag.id)) {
+            if(prevState.selectedTagIds.includes(id)) {
                 return {}
             } else {
                 return {
-                    selectedTagIds: [...prevState.selectedTagIds, tag.id]
+                    selectedTagIds: [...prevState.selectedTagIds, id]
                 }
             }
         })

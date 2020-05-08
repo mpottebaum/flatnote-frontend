@@ -26,7 +26,7 @@ class NotesFilter extends React.Component {
 
     renderTags = () => {
         return this.matchingTags().map(tag => {
-            return <ListGroup.Item key={tag.id} onClick={() => this.props.handleClickFilterTag(tag)}>{tag.name}</ListGroup.Item>
+            return <ListGroup.Item key={tag.id} onClick={() => this.props.handleClickFilterTag(tag.id)}>{tag.name}</ListGroup.Item>
         })
     }
 
