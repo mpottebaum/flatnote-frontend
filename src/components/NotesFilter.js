@@ -21,7 +21,7 @@ class NotesFilter extends React.Component {
     }
 
     matchingTags = () => {
-        return this.props.tags.filter(tag => tag.name.includes(this.state.tag))
+        return this.props.tags.filter(tag => tag.name.toLowerCase().includes(this.state.tag.toLowerCase()))
     }
 
     renderTags = () => {
@@ -43,6 +43,9 @@ class NotesFilter extends React.Component {
                 </Card.Body>
                 <Accordion.Toggle as={Card.Header} eventKey="0">
                   Search Tags
+                  <Form.Text>
+                      Click to expand
+                  </Form.Text>
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
