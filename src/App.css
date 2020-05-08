@@ -41,3 +41,8 @@
 .container {
   margin-top: 10px;
 }
+
+.note-content {
+  overflow: hidden;
+  height: 70px;
+}

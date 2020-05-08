@@ -9,7 +9,7 @@ const Note = props => {
             <Card.Header>
                 {title}
             </Card.Header>
-            <Card.Body>
+            <Card.Body className={'note-content'}>
             {content}
             </Card.Body>
         </Card>

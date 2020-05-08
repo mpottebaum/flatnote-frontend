@@ -18,7 +18,7 @@ class DashboardContainer extends React.Component {
 
         this.state = {
             sort: 'created',
-            selectedTags: []
+            selectedTagIds: []
         }
     }
 
@@ -127,17 +127,19 @@ class DashboardContainer extends React.Component {
 
     filterNotes = () => {
         return this.props.notes.filter(note => {
-            return this.state.selectedTags.every(tag => note.tags.includes(tag))
+            return this.state.selectedTagIds.every(tagId => {
+                return note.tags.find(tag => tag.id === tagId)
+            })
         })
     }
 
     handleClickFilterTag = tag => {
         this.setState(prevState => {
-            if(prevState.selectedTags.includes(tag)) {
+            if(prevState.selectedTagIds.includes(tag.id)) {
                 return {}
             } else {
                 return {
-                    selectedTags: [...prevState.selectedTags, tag]
+                    selectedTagIds: [...prevState.selectedTagIds, tag.id]
                 }
             }
         })
@@ -145,11 +147,11 @@ class DashboardContainer extends React.Component {
 
     handleRemoveFilterTag = id => {
         this.setState(prevState => {
-            const updatedTags = prevState.selectedTags.filter(tag => {
-                return tag.id !== id
+            const updatedTagIds = prevState.selectedTagIds.filter(tagId => {
+                return tagId !== id
             })
             return {
-                selectedTags: updatedTags
+                selectedTagIds: updatedTagIds
             }
         })
     }
@@ -163,6 +165,8 @@ class DashboardContainer extends React.Component {
         const notes = this.filterNotes()
         const tags = this.getTags(notes)
         const sortedNotes = this.sortNotes(notes)
+
+        const selectedTags = tags.filter(tag => this.state.selectedTagIds.includes(tag.id))
 
         return <Container>
             <Row className='dashboard'>
@@ -184,7 +188,7 @@ class DashboardContainer extends React.Component {
                     }
                     <NotesFilter
                         tags={tags}
-                        selectedTags={this.state.selectedTags}
+                        selectedTags={selectedTags}
                         handleClickFilterTag={this.handleClickFilterTag}
                         handleRemoveFilterTag={this.handleRemoveFilterTag}
                     />

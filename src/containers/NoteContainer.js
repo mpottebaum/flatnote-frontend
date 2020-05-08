@@ -21,10 +21,12 @@ class NoteContainer extends React.Component {
     }
 
     handleDeleteNote = id => {
+        const token = localStorage.getItem('token')
         const configObj = {
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             }
         }
         const url = users + `/${this.props.user.id}/notes/${id}`
