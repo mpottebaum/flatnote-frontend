@@ -129,33 +129,18 @@ class DashboardContainer extends React.Component {
 
     filterNotes = () => {
         return this.props.notes.filter(note => {
-            return this.state.selectedTagIds.every(tagId => {
+            return this.props.selectedTagIds.every(tagId => {
                 return note.tags.find(tag => tag.id === tagId)
             })
         })
     }
 
     handleClickFilterTag = id => {
-        this.setState(prevState => {
-            if(prevState.selectedTagIds.includes(id)) {
-                return {}
-            } else {
-                return {
-                    selectedTagIds: [...prevState.selectedTagIds, id]
-                }
-            }
-        })
+        this.props.addTag(id)
     }
 
     handleRemoveFilterTag = id => {
-        this.setState(prevState => {
-            const updatedTagIds = prevState.selectedTagIds.filter(tagId => {
-                return tagId !== id
-            })
-            return {
-                selectedTagIds: updatedTagIds
-            }
-        })
+        this.props.removeTag(id)
     }
 
     findShowNote = id => {
@@ -168,7 +153,7 @@ class DashboardContainer extends React.Component {
         const tags = this.getTags(notes)
         const sortedNotes = this.sortNotes(notes)
 
-        const selectedTags = tags.filter(tag => this.state.selectedTagIds.includes(tag.id))
+        const selectedTags = tags.filter(tag => this.props.selectedTagIds.includes(tag.id))
 
         return <Container>
             <Row className='dashboard'>
@@ -205,7 +190,8 @@ const mapStateToProps = state => {
         notes: state.notes,
         user: state.user,
         showNoteId: state.showNoteId,
-        auth: state.auth
+        auth: state.auth,
+        selectedTagIds: state.selectedTagIds
     }
 }
 
@@ -213,7 +199,9 @@ const mapDispatchToProps = dispatch => {
     return {
         addNotes: notes => dispatch(addNotes(notes)),
         selectNote: id => dispatch(selectNote(id)),
-        currentUser: user => dispatch(currentUser(user))
+        currentUser: user => dispatch(currentUser(user)),
+        addTag: id => dispatch({type: 'ADD_TAG', tagId: id}),
+        removeTag: id => dispatch({type: 'REMOVE_TAG', tagId: id})
     }
 }
 
