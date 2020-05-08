@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { users, auth } from '../urlPaths'
 import { addNotes, selectNote } from '../actions/notes'
 import { currentUser } from '../actions/users'
+import { addTag, removeTag} from '../actions/tags'
 import NotesList from '../components/NotesList'
 import NoteContainer from './NoteContainer'
 import NotesFilter from '../components/NotesFilter'
@@ -200,8 +201,8 @@ const mapDispatchToProps = dispatch => {
         addNotes: notes => dispatch(addNotes(notes)),
         selectNote: id => dispatch(selectNote(id)),
         currentUser: user => dispatch(currentUser(user)),
-        addTag: id => dispatch({type: 'ADD_TAG', tagId: id}),
-        removeTag: id => dispatch({type: 'REMOVE_TAG', tagId: id})
+        addTag: id => dispatch(addTag(id)),
+        removeTag: id => dispatch(removeTag(id))
     }
 }
 
