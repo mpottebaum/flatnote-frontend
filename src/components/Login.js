@@ -33,10 +33,13 @@ class Login extends React.Component {
         fetch(auth, configObj)
             .then(resp => resp.json())
             .then(data => {
-                console.log(data)
-                localStorage.setItem('token', data.jwt)
-                this.props.loginUser(data.user)
-                this.props.history.push('/dashboard')
+                if(data.error) {
+                    alert(data.error)
+                } else {
+                    localStorage.setItem('token', data.jwt)
+                    this.props.loginUser(data.user)
+                    this.props.history.push('/dashboard')
+                }
             })
     }
 

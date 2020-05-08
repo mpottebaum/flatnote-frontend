@@ -53,12 +53,16 @@ class DashboardContainer extends React.Component {
           fetch(auth, configObj)
             .then(resp => resp.json())
             .then(data => {
-                console.log(data)
-                this.props.currentUser(data.user)
-                this.props.addNotes(data.notes)
-                if(this.props.match.params.id) {
-                    const id = parseInt(this.props.match.params.id)
-                    this.props.selectNote(id)
+                if(data.error) {
+                    alert(data.error)
+                    this.props.history.push('/login')
+                } else {
+                    this.props.currentUser(data.user)
+                    this.props.addNotes(data.notes)
+                    if(this.props.match.params.id) {
+                        const id = parseInt(this.props.match.params.id)
+                        this.props.selectNote(id)
+                    }
                 }
             })
         } else {
