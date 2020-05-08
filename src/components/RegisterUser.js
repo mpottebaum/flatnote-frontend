@@ -49,7 +49,7 @@ class RegisterUser extends React.Component {
     }
 
     render() {
-        return <Form onSubmit={this.handleSubmit}>
+        return <Form onSubmit={this.handleSubmit} className='user-form'>
             <Form.Group controlId='formBasicText'>
                 <Form.Label>Username</Form.Label>
                 <Form.Control onChange={this.handleChange} type='text' name='username' value={this.state.username} />

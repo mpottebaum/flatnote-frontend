@@ -67,7 +67,7 @@ class NewNote extends React.Component {
     }
 
     render() {
-        return <Form onSubmit={this.handleSubmit}>
+        return <Form onSubmit={this.handleSubmit} className='new-note'>
             <Form.Group controlId='formBasicText'>
                 <Form.Label>Title</Form.Label>
                 <Form.Control onChange={this.handleChange} type='text' name='title' value={this.state.title} />

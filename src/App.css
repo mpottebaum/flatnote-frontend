@@ -46,3 +46,13 @@
   overflow: hidden;
   height: 70px;
 }
+
+.user-form {
+  min-width: 200px;
+  max-width: 300px;
+}
+
+.new-note {
+  min-width: 400px;
+  max-width: 600px;
+}

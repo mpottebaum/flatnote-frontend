@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { auth } from '../urlPaths'
 import { loginUser } from '../actions/users'
 import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 
@@ -45,28 +46,31 @@ class Login extends React.Component {
 
     render() {
         return (
-            <Form onSubmit={this.handleSubmit} >
-                <Form.Group as={Row} controlId='formHorizontalText'>
-                <Col sm={5}>
+            <Form onSubmit={this.handleSubmit} className='user-form'>
+                <Form.Group controlId='formBasicText'>
+                    <Form.Label>
+                        Username
+                    </Form.Label>
                     <Form.Control
                         onChange={this.handleChange}
                         type='text'
                         name='username'
                         value={this.state.username}
-                        placeholder='Username'
                     />
-                </Col>
-                <Col sm={5}>
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>
+                        Password
+                    </Form.Label>
                     <Form.Control
                         onChange={this.handleChange}
                         type='password'
                         name='password'
                         value={this.state.password}
                     />
-                </Col>
-                <Col sm={1}>
-                  <Form.Control type='submit' value='Login' />
-                </Col>
+                </Form.Group>
+                <Form.Group>
+                  <Button type='submit'>Login</Button>
                 </Form.Group>
             </Form>
         )
