@@ -18,8 +18,7 @@ class DashboardContainer extends React.Component {
         super()
 
         this.state = {
-            sort: 'created',
-            selectedTagIds: []
+            sort: 'created'
         }
     }
 
