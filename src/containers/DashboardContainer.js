@@ -32,7 +32,6 @@ class DashboardContainer extends React.Component {
           }
     }
 
-
     componentDidMount() {
         const token = localStorage.getItem('token')
         if(this.props.auth) {
@@ -80,8 +79,12 @@ class DashboardContainer extends React.Component {
     }
 
     handleNoteClick = id => {
-        this.props.selectNote(id)
-        this.props.history.push(`/note/${id}`)
+        if(id === this.props.showNoteId) {
+            this.props.history.push('/dashboard')
+        } else {
+            this.props.selectNote(id)
+            this.props.history.push(`/note/${id}`)
+        }
     }
 
     handleSort = value => {
