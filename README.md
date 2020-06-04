@@ -1,12 +1,10 @@
 # Flatnote - Front End
 
-![Flatnote demo](https://j.gifs.com/YWJMM9.gif)
-
 Flatnote is a note-taking app that allows users to easily filter notes by multiple tags.
 
-[Full Demo](https://www.youtube.com/watch?v=reKIlvSAIFo&feature=youtu.be)
+[Full Demo](https://www.youtube.com/watch?v=reKIlvSAIFo&feature=youtu.be) | [API Repo](https://github.com/mpottebaum/flatnote-backend)
 
-[API Repo](https://github.com/mpottebaum/flatnote-backend)
+![Flatnote demo](https://j.gifs.com/YWJMM9.gif)
 
 ## Installing Flatnote
 
